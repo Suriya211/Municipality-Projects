@@ -50,4 +50,3 @@ app.use((req, res, next) => {
 app.listen(3002, () => {
   console.log(`Server Started at ${3003}`)
 })
-app.timeout = 300000;

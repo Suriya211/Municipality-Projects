@@ -162,5 +162,101 @@ footer ul li {
     grid-row: 3/4;
     grid-column: 1/5;
     background-color: #e63838;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
+.popup {
+    position: fixed;
+    top: 50%;
+    right: 0;color: #050505;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    padding: 20px;
+    display: none;
+    margin-right: 40px;
+}
+#wha{
+    height: 50px;
+    width: 50px;
+}
+#su{
+    margin-top: 30px;
+    margin-left: 200px;
+    background-color: darkturquoise;
+    color: #000;display: inline-block;
+    border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;border-top-left-radius: 10px;
+    text-align: center;
+    padding: 2px;
+    padding-right: 2px;
+}
+#su:hover{
+    background-color: #000;color: white;
+}
+#section4,
+#section5 {
+    overflow: hidden;
+}
+#section4 {
+    overflow: hidden;
+}
+.nav-link {
+    color: white;
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #007bff; /* Button background color */
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #f9fcff; /* Change color on hover */
+}
+/* Background Image */
+.background-image {
+    background-image: url("hos1.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Search Bar */
+.search-bar {
+    width: 80%; /* Adjust width as needed */
+    max-width: 500px; /* Maximum width of the search bar */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-input {
+    width: 70%; /* Adjust width as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px; /* Spacing between input and button */
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map</title>
+    <style>
+  .map-container {
+            position: relative;
+            overflow: hidden;
+            width: 600px;
+            height: 400px; 
+            border: 1px solid #ccc;
+        }
+        .map-image {
+            width: 100%;
+            height: auto;
+        }
+        .marker {
+            position: absolute;
+            width: 10px; 
+            height: 10px; 
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2px;
+            font-weight: bold;
+            color: #FFFFFF; 
+        }
+        .good-marker {
+            background-color: #00FF00;
+        }
+        .bad-marker {
+            background-color: #FF0000;
+        }
+        .permanent-message {
+            position: absolute;
+            font-size: 6px; 
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3px;
+            border-radius: 3px;
+        }
+        .description {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container" id="mapContainer">
+        <img src="south covai.png" alt="Map Image" class="map-image" id="mapImage" onclick="markTouch(event)">
+    </div>
+    <div class="description">
+        <p><strong>Description:</strong> PORTABLE water indicates clean and safe water, while CONTAMINATED water suggests contamination or pollution.</p>
+    </div>
+    <script>
+        let markerCounter = 1;
+        const markers = [];
+        function markTouch(event) {
+            const mapContainer = document.getElementById('mapContainer');
+            const mapRect = mapContainer.getBoundingClientRect();
+            const offsetX = event.clientX - mapRect.left;
+            const offsetY = event.clientY - mapRect.top;
+            if (offsetX < 0 || offsetY < 0 || offsetX > mapRect.width || offsetY > mapRect.height) {
+                return;
+            }
+            const marker = document.createElement('div');
+            marker.classList.add('marker');
+            marker.style.top = offsetY + 'px';
+            marker.style.left = offsetX + 'px';
+            marker.innerText = 'Mark ' + markerCounter++;
+            const isGoodWater = Math.random() < 0.5; 
+            if (isGoodWater) {
+                marker.classList.add('good-marker');
+            } else {
+                marker.classList.add('bad-marker');
+            }
+            const message = document.createElement('div');
+            message.innerText = isGoodWater ? 'Portable Water' : 'Contaminated Water';
+            message.classList.add('permanent-message');
+            message.style.top = (offsetY + 20) + 'px';
+            message.style.left = offsetX + 'px';
+
+            mapContainer.appendChild(marker);
+            mapContainer.appendChild(message);
+            markers.push({ markerX: offsetX, markerY: offsetY, messageX: offsetX, messageY: offsetY + 20 });
+        }
+        const mapImage = document.getElementById('mapImage');
+        const mapContainer = document.getElementById('mapContainer');
+        let isDragging = false;
+        let startX, startY;
+        let offsetX = 0;
+        let offsetY = 0;
+        mapContainer.addEventListener('mousedown', handleMouseDown);
+        mapContainer.addEventListener('mousemove', handleMouseMove);
+        mapContainer.addEventListener('mouseup', handleMouseUp);
+        function handleMouseDown(event) {
+            isDragging = true;
+            startX = event.clientX - offsetX;
+            startY = event.clientY - offsetY;
+        }
+        function handleMouseMove(event) {
+            if (!isDragging) return;
+            event.preventDefault();
+            const x = event.clientX - startX;
+            const y = event.clientY - startY;
+            offsetX = x;
+            offsetY = y;
+            updateMapPosition();
+        }
+        function handleMouseUp(event) {
+            isDragging = false;
+        }
+        function updateMapPosition() {
+            mapImage.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            markers.forEach(({ markerX, markerY, messageX, messageY }, index) => {
+                const marker = document.querySelector(`.marker:nth-child(${index + 1})`);
+                const message = document.querySelector(`.permanent-message:nth-child(${index + 1})`);
+                marker.style.top = markerY + offsetY + 'px';
+                marker.style.left = markerX + offsetX + 'px';
+                message.style.top = messageY + offsetY + 'px';
+                message.style.left = messageX + offsetX + 'px';
+            });
+        }
+    </script>
+</body>
+</html>
